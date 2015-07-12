@@ -15,7 +15,6 @@ include(CTestUseLaunchers OPTIONAL)
 
 #-----------------------------------------------------------------------------
 # Python libraries
-
 find_package(PythonLibs REQUIRED)
 include_directories("${PYTHON_INCLUDE_DIR}")
 add_definitions(-DPYTHONQT_USE_RELEASE_PYTHON_FALLBACK)
@@ -208,8 +207,8 @@ qt4_add_resources(gen_qrc_sources ${qrc_sources})
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   )
-  
-add_library(PythonQt SHARED
+set(CMAKE_CXX_FLAGS ${CMAKE_CSS_FLAGS} "-fPIC")  
+add_library(PythonQt STATIC
             ${sources}
             ${gen_moc_sources}
             ${gen_ui_sources}
