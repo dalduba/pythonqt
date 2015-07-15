@@ -18,7 +18,8 @@ include ( ../../build/PythonQt_QtAll.prf )
 contains(QT_MAJOR_VERSION, 5) {
   QT += widgets
 }
-
+INCLUDEPATH += /home/dal/workspace/QScintilla-gpl-2.9/Qt4Qt5/Qsci/
+LIBS += -L/home/dal/workspace/QScintilla-gpl-2.9/Qt4Qt5 -lqscintilla2
 HEADERS +=                    \
   PyExampleObject.h             
   
@@ -27,3 +28,4 @@ SOURCES +=                    \
   main.cpp        
 
 RESOURCES += PyScriptingConsole.qrc
+LIBS += -L/usr/lib/x86_64-linux-gnu/ -lpython3.4m

@@ -50,7 +50,8 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QLayout>
-
+#include <Qsci/qsciscintilla.h>
+#include <Qsci/qscilexerpython.h>
 
 int main( int argc, char **argv )
 {
@@ -62,9 +63,40 @@ int main( int argc, char **argv )
   PythonQtObjectPtr  mainContext = PythonQt::self()->getMainModule();
   PythonQtScriptingConsole console(NULL, mainContext);
 
+  QsciScintilla *PythonEdit = new QsciScintilla; // инитилизируем редактор
+  PythonEdit->setUtf8(true); // мы же хотим читать кириллицу
+  QsciLexerPython * lexPython = new QsciLexerPython();
+  PythonEdit->setLexer(lexPython);
+
+
+
+  //! Текущая строка кода и ее подсветка
+      PythonEdit->setCaretLineVisible(true);
+      PythonEdit->setCaretLineBackgroundColor(QColor("gainsboro"));
+
+      //! Выравнивание
+      PythonEdit->setAutoIndent(true);
+      PythonEdit->setIndentationGuides(false);
+      PythonEdit->setIndentationsUseTabs(true);
+      PythonEdit->setIndentationWidth(4);
+
+      //! Авто-дополнение кода в зависимости от источника
+      PythonEdit->setAutoCompletionSource(QsciScintilla::AcsAll);
+      PythonEdit->setAutoCompletionCaseSensitivity(true);
+      PythonEdit->setAutoCompletionReplaceWord(true);
+      PythonEdit->setAutoCompletionUseSingle(QsciScintilla::AcusAlways);
+      PythonEdit->setAutoCompletionThreshold(0);
+
+      //! Подсветка соответствий скобок
+         PythonEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+         PythonEdit->setMatchedBraceBackgroundColor(Qt::yellow);
+         PythonEdit->setUnmatchedBraceForegroundColor(Qt::blue);
+
   // add a QObject to the namespace of the main python context
   PyExampleObject example;
-  mainContext.addObject("example", &example);
+  mainContext.addObject("", &example);
+  mainContext.addObject("PythonQtScriptingConsole", &console);
+  mainContext.addObject("PythonEdit", PythonEdit);
 
   mainContext.evalFile(":example.py");
 

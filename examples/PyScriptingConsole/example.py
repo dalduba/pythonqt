@@ -30,11 +30,20 @@ scripts_hlayout.addWidget(scripts_splitter)
 scripts_splitter.setStretchFactor(1, 1)
 scripts_splitter.setSizes([80,80])
 
+
+
+Editor_tab = QTabWidget()
+#editor_layout.addWidget(Editor_tab)
+
+
+#Editor_tab.addTab(PythonEdit, "f1")
+
+#main_tab.addTab(editor_widget, "Editor")
+
+Editor_tab.addTab(PythonEdit, "f1")
+main_tab.addTab(Editor_tab, "Editor")
+
 group.show()
-
-editor_widget = QWidget();
-main_tab.addTab(editor_widget, "Editor")
-
 #box = QVBoxLayout(group)
 #push1 =  QPushButton(group)
 #box.addWidget(push1)
