@@ -87,6 +87,12 @@ int main( int argc, char **argv )
       PythonEdit->setAutoCompletionUseSingle(QsciScintilla::AcusAlways);
       PythonEdit->setAutoCompletionThreshold(0);
 
+      //! margin это полоска слева, на которой обычно распологаются breakpoints
+      PythonEdit->setMarginsBackgroundColor(QColor("gainsboro"));
+      PythonEdit->setMarginType(1, QsciScintilla::NumberMargin);
+//      PythonEdit->setMarginLineNumbers(1, true);
+      PythonEdit->setMarginWidth(1, 50);
+
       //! Подсветка соответствий скобок
          PythonEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
          PythonEdit->setMatchedBraceBackgroundColor(Qt::yellow);

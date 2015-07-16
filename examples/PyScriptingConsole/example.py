@@ -31,17 +31,39 @@ scripts_splitter.setStretchFactor(1, 1)
 scripts_splitter.setSizes([80,80])
 
 
-
+editor_widget = QWidget();
 Editor_tab = QTabWidget()
+
 #editor_layout.addWidget(Editor_tab)
 
 
 #Editor_tab.addTab(PythonEdit, "f1")
 
 #main_tab.addTab(editor_widget, "Editor")
+editor_splitter = QSplitter()
+
+editor_hlayout = QHBoxLayout(editor_widget)
 
 Editor_tab.addTab(PythonEdit, "f1")
-main_tab.addTab(Editor_tab, "Editor")
+main_tab.addTab(editor_widget, "Editor")
+
+editor_tree = QTreeView()
+
+dirmodel = QDirModel()
+import os
+#if os.name == 'posix':
+#	ind = dirmodel.setRootPath("/")
+#else:
+#	ind = dirmodel.setRootPath(dirmodel.myComputer())
+#editor_tree.setRootIndex(ind);
+
+editor_tree.setModel(dirmodel)
+editor_tree.setRootIndex(dirmodel.index("/")); 
+
+editor_splitter.addWidget(editor_tree)
+editor_splitter.addWidget(Editor_tab)
+
+editor_hlayout.addWidget(editor_splitter)
 
 group.show()
 #box = QVBoxLayout(group)
